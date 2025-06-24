@@ -12,6 +12,7 @@ def show_messagebox():
     msg = messagebox.askretrycancel(title="Operation Failed", message="Do you want to retry?")
     messagebox.askquestion(title="Tkinter", message="Do you know Python?")
     print(msg)
+    messagebox.showinfo(title="User Information", message="You have logged in!")
     
 # cursor property
 # values (arrow, circle, xterm, watch, hand2, plus)
