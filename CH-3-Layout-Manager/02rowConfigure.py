@@ -7,7 +7,8 @@ window.title("Grid")
 # window.columnconfigure(0, weight=1)
 # window.columnconfigure(1, weight=1)
 
-window.columnconfigure((0,1), weight=1)
+window.columnconfigure(0, weight=1)
+window.columnconfigure(1, weight=2)
 
 
 label1 = tk.Label(window, text="First row", bg="green", font=(20))
