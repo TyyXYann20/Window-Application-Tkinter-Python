@@ -1,9 +1,19 @@
 import tkinter as tk
 from tkinter import ttk
 
+
 window = tk.Tk()
 window.geometry("900x600")
 window.title("Sample UI")
+
+# global
+style = ttk.Style()
+
+style.configure('TButton', font=("Arial", 12))
+style.map('TButton', foreground=[('pressed', 'red')],
+          )
+style.map('insertBtn.TButton', foreground=[('pressed', 'blue')],
+          )
 
 #define column for root window
 window.columnconfigure(0, weight=1)
@@ -50,7 +60,8 @@ currencyBox.set("៛ រៀល (KHR)")
 qty_spinbox.grid(row=3, column=0)
 price_spinbox.grid(row=3, column=1)
 currencyBox.grid(row=3, column=2)
-ttk.Button(inputFrame, text="Add Product", cursor="hand2").grid(row=4, column=2, sticky="e", padx=80)
+ttk.Button(inputFrame, text="Add Product", cursor="hand2", style="insertBtn.TButton").grid(row=4, column=2, sticky="e",
+                                                                padx=80, ipadx=5, ipady=5)
 
 #TreeviewFrame
 tableFrame = tk.Frame(window, bg="#f2f2f2")
@@ -58,8 +69,18 @@ tableFrame.rowconfigure(0, weight=1)
 tableFrame.columnconfigure(0, weight=1)
 tableFrame.grid(row=1, column=0, sticky="news")
 
+style.configure('Treeview', foreground="black",  background="white",
+                font=('Arial', 11))
+style.configure('Treeview.Heading', foreground="green", font=('Arial', 11),
+                background="red")
+
 cols = ('ID', 'Product Name', 'Price', 'Quantity')
 table = ttk.Treeview(tableFrame, columns=cols, show='headings')
+# table.column('ID', width=100)
+# table.column('Product Name', width=180)
+# table.column('Price', width=100)
+# table.column('Quantity', width=100)
+
 table.heading('ID', text='ID')
 table.heading('Product Name', text='Product Name')
 table.heading('Price', text='Price')
@@ -89,9 +110,9 @@ buttonFrame.grid(row=2, column=0, sticky="news")
 buttonFrame.columnconfigure(0, weight=1)
 buttonFrame.rowconfigure((0, 1), weight=1)
 
-ttk.Button(buttonFrame, text="Print Invoice").grid(row=0, column=0, sticky="news",
-                                                   ipadx=10, ipady=10)
-ttk.Button(buttonFrame, text="New Invoice").grid(row=1, column=0,
+ttk.Button(buttonFrame, text="Print Invoice", cursor="hand2").grid(row=0, column=0, sticky="news",
+                                                   ipadx=10, ipady=10,)
+ttk.Button(buttonFrame, text="New Invoice", cursor="hand2").grid(row=1, column=0,
                                                 sticky="news", ipady=5,
                                                 ipadx=10)
     
