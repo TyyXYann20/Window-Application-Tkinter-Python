@@ -20,7 +20,9 @@ labelBg = tk.Label(
 )
 
 def change_background_color(color):
-    pass
+    window.config(bg=color)
+    button_frame.config(bg=color)
+    
 
 print(1%4)
 # add widget to layout
@@ -38,7 +40,7 @@ for index, color in enumerate(COLOR_OPTIONS):
         width=10,
         fg= "white" if color in ["red", "black", "blue", "purple"] else "black",
         cursor="hand2",
-        command=None
+        command= lambda c=color: change_background_color(c)
     )
     color_button.grid(row=row, column=col, padx=5, pady=5)
 
