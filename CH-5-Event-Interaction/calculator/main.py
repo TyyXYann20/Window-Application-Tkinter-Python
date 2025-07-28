@@ -16,7 +16,7 @@ main_frme.rowconfigure((0,1,2,3,4), weight=1)
 main_frme.columnconfigure((0,1,2,3), weight=1)
 
 # Function Section
-expression = ""
+expression = "" # '12+15' also list
 OPS_SET = {"*", "/", "+", "-"}
 
 def handle_key(event):
@@ -42,27 +42,76 @@ def append_value(val):
     else:
         expression += val
     display_var.set(expression)
-    
-        
+
+def percentage():
+    global expression
+    curr = display_var.get()
+    try:
+        result = float(curr) / 100
+        display_var.set(str(round(result, 3)))
+        expression = str(round(result, 3))
+    except:
+        display_var.set("Error")
+ 
+def square_root():
+    current = display_var.get()
+    global expression
+    try:
+        result = round(math.sqrt(float(current)), 3)
+        display_var.set(result)
+        expression = str(result)
+    except:
+        display_var.set("Error")
+def toggle_sign():
+     curr = display_var.get()  
+     if curr not in ["0", "Error"]:
+        if curr.startswith("-"):
+            display_var.set(curr[1:])
+          
+        else:
+              display_var.set("-" + curr)
+          
+def calculate():
+    global expression
+    try:
+        expr = expression.replace("x", "*").replace("÷", "/")
+        result = eval(expr)
+        result = int(result) if result == int(result) else round(result, 3)
+        display_var.set(str(result))
+        expression = str(result)
+    except:
+        display_var.set("Error")
+        expression = ""
+             
 def on_click(button):
     if button == "AC":
         clear_result()
     elif button == "=":
-        #calculate()
+        calculate()
         print("User pressed = Button")
         pass
     elif button == "%":
-        pass
+       percentage()
     elif button == "√":
-        pass
+        square_root()
+    
+    elif button == "+/-":
+        toggle_sign()
     
     else:
         append_value(button) 
         
-def clear_result():
+def clear_result(event=None):
     global expression
     expression = ""
     display_var.set("0")
+
+def backspace(event=None):
+    global expression
+    expression = expression[:-1]
+    display_var.set(expression if expression else "0")
+  
+    
 
 display_var = tk.StringVar(value="0")
 display_res = tk.Label(
@@ -109,4 +158,7 @@ for index, value in enumerate(BUTTONS_VALUE):
     btn.grid(row=row+1, column=col, padx=1, pady=1, sticky="news")
 
 window.bind("<Key>", handle_key)
+window.bind("<BackSpace>", backspace)
+window.bind("<Escape>",  clear_result)
+
 window.mainloop()
